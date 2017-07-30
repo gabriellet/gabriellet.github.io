@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     // Add smooth scrolling on all links inside the navbar
-    $("#navbarExample a").on('click', function(event) {
+    $("#navbarLinks a, #footerLinks a").on('click', function(event) {
 
       // Make sure this.hash has a value before overriding default behavior
       if (this.hash !== "") {
@@ -23,6 +23,13 @@ $(document).ready(function(){
         });
 
       } // End if
+      else {
+        $('html, body').animate({
+          scrollTop: 0
+        }, 800, function(){
+          window.location.hash = "#";
+        });
+      }
 
     });
 
