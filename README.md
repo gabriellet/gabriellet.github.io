@@ -4,3 +4,5 @@ www.gabrielleataylor.com
 
 Modified from template here:
 https://startbootstrap.com/template-overviews/landing-page/
+
+Updates in progress.
