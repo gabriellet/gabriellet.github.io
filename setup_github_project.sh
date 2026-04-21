@@ -13,7 +13,7 @@
 #   ./setup_github_project.sh
 # ============================================================
 
-set -e
+set +e  # don't abort on individual failures
 
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner 2>/dev/null)
 if [ -z "$REPO" ]; then
@@ -42,42 +42,15 @@ echo "Labels created."
 echo ""
 
 # ------------------------------------------------------------
-# 2. Milestones
+# 2. Milestones — already created, skipping
 # ------------------------------------------------------------
-echo "Creating milestones..."
-
-gh api repos/$REPO/milestones \
-  -f title="Phase 0: Foundation" \
-  -f description="Repo setup, design tokens, bio copy — everything else builds on this" \
-  -f state="open" > /dev/null
-
-gh api repos/$REPO/milestones \
-  -f title="Phase 1: Core pages" \
-  -f description="Home, About, Contact — minimum viable site, shippable on its own" \
-  -f state="open" > /dev/null
-
-gh api repos/$REPO/milestones \
-  -f title="Phase 2: Work & Making" \
-  -f description="Portfolio and hobbies pages" \
-  -f state="open" > /dev/null
-
-gh api repos/$REPO/milestones \
-  -f title="Phase 3: Polish" \
-  -f description="Accessibility audit, responsive QA, SEO basics, final review" \
-  -f state="open" > /dev/null
-
-echo "Milestones created."
+echo "Skipping milestones (already created)."
 echo ""
 
-# Helper: get milestone number by title
-milestone_number() {
-  gh api repos/$REPO/milestones --jq ".[] | select(.title == \"$1\") | .number"
-}
-
-M0=$(milestone_number "Phase 0: Foundation")
-M1=$(milestone_number "Phase 1: Core pages")
-M2=$(milestone_number "Phase 2: Work & Making")
-M3=$(milestone_number "Phase 3: Polish")
+M0="Phase 0: Foundation"
+M1="Phase 1: Core pages"
+M2="Phase 2: Work & Making"
+M3="Phase 3: Polish"
 
 # ------------------------------------------------------------
 # 3. Issues
